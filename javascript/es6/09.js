@@ -7,7 +7,4 @@ let obj = {
   },
 };
 
-const {
-  name,
-  bag: { item_1 },
-} = obj;
+const { name, bag: { item_1 } } = obj
