@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql
+          image: mysql:8.0.21
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            - name: mysql-cnf
+              mountPath: /etc/mysql/conf.d/my.cnf
+              subPath: my.cnf
+            - name: mysql-tls
+              mountPath: /etc/mysql/tls
+              readOnly: true
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+        - name: mysql-cnf
+          configMap:
+            name: mysql-config
+        - name: mysql-tls
+          secret:
+            secretName: selfsigned-cert-tls
