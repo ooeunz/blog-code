@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
-  name: selfsigned-cert
-  namespace: default
+  name: selfsigned-jks
+  namespace: noah-test
 spec:
-  secretName: selfsigned-cert-tls
+  secretName: selfsigned-cert-jks
   duration: 2880h # 120d
   renewBefore: 360h # 15d
   commonName: Selfsigned certificate
@@ -12,6 +12,12 @@ spec:
   keySize: 2048
   keyAlgorithm: rsa
   keyEncoding: pkcs1
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef: # Password used to encrypt the keystore
+        key: password-key
+        name: jks-password-secret
   usages:
     - digital signature
     - key encipherment
