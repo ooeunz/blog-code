@@ -29,12 +29,12 @@ $ script/start-certificate.sh
 아래의 명령어로 `cert-manager` 네임스페이스에 배포된 cert-manager를 삭제할 수 있습니다.
 
 ```shell
-$ script/destory-cert-manager.sh
+$ sh script/destory-cert-manager.sh
 ```
 
 #### Destroy certificate
 아래의 명령어로 `default` 네임스페이스에 배포된 certificate를 삭제할 수 있습니다.
 
 ```shell
-$ script/destory-certificate.sh
+$ sh script/destory-certificate.sh
 ```

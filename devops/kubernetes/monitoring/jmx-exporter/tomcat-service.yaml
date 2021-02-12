@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8999"
+    prometheus.io/path: "/actuator/prometheus"
+  name: noah-http
+  namespace: default
+spec:
+  selector:
+    app: "noah"
+  ports:
+    - port: 8080
+      name: application
+      protocol: TCP
+      targetPort: 8080
+    - port: 8999
+      name: scrape
+      protocol: TCP
+      targetPort: 8999

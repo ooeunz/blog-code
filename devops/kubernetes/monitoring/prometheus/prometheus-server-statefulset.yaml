@@ -16,7 +16,7 @@ spec:
       labels:
         app: prometheus
     spec:
-      serviceAccountName: prometheus-account
+      serviceAccountName: monitoring
       securityContext:
         runAsUser: 0
       containers:

@@ -23,12 +23,12 @@ kubernetes:v1.17.12
 아래의 명령어로 모니터링 시스템을 cluster에서 배포할 수 있습니다.
 
 ```shell
-$ script/start-monitoring.sh
+$ sh script/start-monitoring.sh
 ```
 
 #### Destroy script
 아래의 명령어로 모니터링 시스템을 cluster에서 삭제할 수 있습니다.
 
 ```shell
-$ script/destory-monitoring.sh
+$ sh script/destory-monitoring.sh
 ```
