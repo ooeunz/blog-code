@@ -7,7 +7,7 @@ Prometheus는 오픈소스 모니터링 툴입니다. 이와 관련된 자세한
 ## Script
 아래의 명령어들로 간편하게 Monitoring system을 배포 및 삭제할 수 있습니다. 
 
-본 repository에 있는 source code 및 script는 아래의 버전에서 동작이 검증되었으며 이외의 버전의 kubernetes의 경우 확인이 필요합니다.
+본 repository에 있는 source code 및 script는 아래의 버전에서 동작이 검증되었으며 이외의 버전일 경우 확인이 필요합니다.
 
 ```shell
 kubernetes:v1.15.11
