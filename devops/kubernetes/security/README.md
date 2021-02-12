@@ -13,6 +13,28 @@ Cert-manager는 Kubernetes 내부에서 HTTPS 통신을 위한 인증서를 생�
 ## Script
 #### Start cert-manager
 아래의 명령어로 cert-manager를 cluster에서 배포할 수 있습니다.
+
 ```shell
-sh script/start-cert-manager.sh
+$ script/start-cert-manager.sh
+```
+
+#### Start certificate
+아래의 명령어로 `default` 네임스페이스에 certificate를 배포할 수 있습니다.
+
+```shell
+$ script/start-certificate.sh
+```
+
+#### Destroy cert-manager
+아래의 명령어로 `cert-manager` 네임스페이스에 배포된 cert-manager를 삭제할 수 있습니다.
+
+```shell
+$ script/destory-cert-manager.sh
+```
+
+#### Destroy certificate
+아래의 명령어로 `default` 네임스페이스에 배포된 certificate를 삭제할 수 있습니다.
+
+```shell
+$ script/destory-certificate.sh
 ```

@@ -1,3 +1,5 @@
+#! /bin/bash
+
 echo 🔥 Destory monitoring system
 
 kubectl delete namespace monitoring

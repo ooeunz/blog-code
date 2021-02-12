@@ -1,3 +1,5 @@
+#! /bin/bash
+
 🎉 Deploy cert-manager
 
 kubectl create namespace cert-manager

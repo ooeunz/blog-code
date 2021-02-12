@@ -1,3 +1,5 @@
+#! /bin/bash
+
 echo 🎉 Deploy monitoring system
 
 kubectl create namespace monitoring
