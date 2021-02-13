@@ -1,0 +1,29 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+      resolve_timeout: 5m
+      slack_api_url: "https://hooks.slack.com/services/T0WU4JZEX/BC1A8B28K/phzHpkJLzvlc….……..”
+    route:
+      group_by: ['alertname']
+      receiver: slack
+      group_wait: 30s
+      group_interval: 1m
+      repeat_interval: 4h
+
+    receivers:
+      - name: influxdb
+        webhook_configs:
+        - url: "http://webhook-url"
+          send_resolved: false
+      - name: 'slack-alert'
+        slack_configs:
+        - channel: "#jenkins"
+          username: "Prometheus"
+          send_resolved: true
+          title: ''
+          text: ''
