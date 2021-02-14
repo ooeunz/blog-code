@@ -13,7 +13,7 @@ data:
           - alert: Kubernetes PV Error
             expr: >
               kube_persistentvolume_status_phase{phase=~Failed|Pending, job=kube-state-metrics} > 0
-            for: 1m
+            for: 5m
             labels:
               severity: critical
             annotations:
@@ -24,7 +24,7 @@ data:
           - alert: Kubernetes PVC Pending
             expr: >
               kube_persistentvolumeclaim_status_phase{job=kube-state-metrics, phase=Pending} == 1
-            for: 1m
+            for: 5m
             labels:
               severity: warning
             annotations:
@@ -35,7 +35,7 @@ data:
           - alert: Kubernetes Node Ready
             expr: >
               kube_node_status_condition{job=kube-state-metrics, condition=Ready,status=true} == 0
-            for: 1m
+            for: 5m
             labels:
               severity: critical
             annotations:
@@ -46,7 +46,7 @@ data:
           - alert: Node Out Of Memory
             expr: >
               ((node_memory_MemTotal_bytes{job=kubernetes-service-endpoints} - node_memory_MemFree_bytes{job=kubernetes-service-endpoints}) / node_memory_MemTotal_bytes{job=kubernetes-service-endpoints}) * 100 > 90
-            for: 1m
+            for: 5m
             labels:
               severity: critical
             annotations:
@@ -59,7 +59,7 @@ data:
           - alert: Container Cpu Usage
             expr: >
               sum(rate(container_cpu_usage_seconds_total{name!~.*prometheus.*, image!=, container!=POD, job=kubernetes-cadvisor}[5m])) by (container, namespace) / sum(container_spec_cpu_quota{name!~.*prometheus.*, image!=, container!=POD, job=kubernetes-cadvisor}/container_spec_cpu_period{name!~.*prometheus.*, image!=, container!=POD, job=kubernetes-cadvisor}) by (container, namespace) * 100 > 90
-            for: 1m
+            for: 5m
             labels:
               severity: critical
             annotations:
@@ -69,7 +69,7 @@ data:
           - alert: Container Memory Usage
             expr: >
               (avg (container_memory_working_set_bytes{container!=POD, container!=, job=kubernetes-cadvisor}) by (container , namespace)) / (avg (container_spec_memory_limit_bytes{container!=POD, container!=, job=kubernetes-cadvisor} > 0 ) by (container, namespace)) * 100 > 90
-            for: 1m
+            for: 5m
             labels:
               severity: critical
             annotations:
@@ -80,7 +80,7 @@ data:
           - alert: Kubernetes Statefulset Down
             expr: >
               (kube_statefulset_status_replicas_ready{job=kube-state-metrics} / kube_statefulset_status_replicas{job=kube-state-metrics}) != 1
-            for: 1m
+            for: 5m
             labels:
               severity: critical
             annotations:
@@ -90,8 +90,8 @@ data:
 
           - alert: Kubernetes Pod Not Healthy
             expr: >
-              min_over_time(sum by (namespace, pod) (kube_pod_status_phase{job=kube-state-metrics, phase=~Pending|Unknown|Failed})[1m:]) > 0
-            for: 1m
+              min_over_time(sum by (namespace, pod) (kube_pod_status_phase{job=kube-state-metrics, phase=~Pending|Unknown|Failed})[5m:]) > 0
+            for: 5m
             labels:
               severity: critical
             annotations:
@@ -102,7 +102,7 @@ data:
           - alert: Kubernetes Job Failed
             expr: >
               kube_job_status_failed{job=kube-state-metrics} > 0
-            for: 1m
+            for: 5m
             labels:
               severity: warning
             annotations:
