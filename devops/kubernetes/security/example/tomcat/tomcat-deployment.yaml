@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: noah-deploy
+  namespace: default
+  labels:
+    app: noah
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: noah
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: noah
+    spec:
+      containers:
+        - name: noah
+          image: ooeunz/noah:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 1
+              memory: 2Gi
+            limits:
+              cpu: 1
+              memory: 2Gi
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - name: tomcat-tls
+              mountPath: /usr/local/tomcat/conf/tls
+              readOnly: true
+      volumes:
+        - name: tomcat-tls
+          secret:
+            secretName: selfsigned-cert-jks

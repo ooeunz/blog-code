@@ -7,7 +7,7 @@ spec:
   secretName: selfsigned-cert-tls
   duration: 2880h # 120d
   renewBefore: 360h # 15d
-  commonName: Selfsigned certificate
+  commonName: ooeunz.tistory.com
   isCA: false
   keySize: 2048
   keyAlgorithm: rsa
