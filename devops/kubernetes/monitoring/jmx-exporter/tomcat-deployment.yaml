@@ -31,11 +31,11 @@ spec:
               protocol: TCP
           resources:
             requests:
-              cpu: 100m
-              memory: 100Mi
+              cpu: 1
+              memory: 2Gi
             limits:
-              cpu: 100m
-              memory: 100Mi
+              cpu: 1
+              memory: 2Gi
           livenessProbe:
             httpGet:
               path: /actuator/health

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
+  namespace: noah-ceph
 spec:
   selector:
     matchLabels:
@@ -24,21 +25,30 @@ spec:
             - containerPort: 3306
               name: mysql
           volumeMounts:
-            - name: mysql-persistent-storage
+            - name: data
               mountPath: /var/lib/mysql
-            - name: mysql-cnf
-              mountPath: /etc/mysql/conf.d/my.cnf
-              subPath: my.cnf
-            - name: mysql-tls
-              mountPath: /etc/mysql/tls
-              readOnly: true
-      volumes:
-        - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-pv-claim
-        - name: mysql-cnf
-          configMap:
-            name: mysql-config
-        - name: mysql-tls
-          secret:
-            secretName: selfsigned-cert-tls
+            # - name: mysql-cnf
+            #   mountPath: /etc/mysql/conf.d/my.cnf
+            #   subPath: my.cnf
+            # - name: mysql-tls
+            #   mountPath: /etc/mysql/tls
+            #   readOnly: true
+      # volumes:
+      #   - name: mysql-cnf
+      #     configMap:
+      #       name: mysql-config
+        # - name: mysql-tls
+        #   secret:
+        #     secretName: selfsigned-cert-tls
+volumeClaimTemplates:
+  - metadata:
+      name: data
+      namespace: "noah-ceph"
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: "20Gi"
+      storageClassName: "rbd-encrypt"
+
