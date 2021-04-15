@@ -32,14 +32,7 @@ public class MyControllerMain {
                 logger.info("No namespace found via config, assuming default.");
                 namespace = DEFAULT_NAMESPACE;
             }
-
             logger.info("Using namespace : {}", namespace);
-            CustomResourceDefinitionContext context = new CustomResourceDefinitionContext.Builder()
-                .withVersion("v1alpha1")
-                .withScope("Namespaced")
-                .withGroup("mycontroller.k8s.io")
-                .withPlural("foos")
-                .build();
 
             SharedInformerFactory informerFactory = client.informers();
 
