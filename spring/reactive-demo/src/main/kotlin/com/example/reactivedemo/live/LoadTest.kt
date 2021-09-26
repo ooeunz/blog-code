@@ -1,8 +1,12 @@
 package com.example.reactivedemo.live
 
+import io.netty.channel.nio.NioEventLoopGroup
 import mu.KotlinLogging
+import org.springframework.http.client.Netty4ClientHttpRequestFactory
 import org.springframework.util.StopWatch
+import org.springframework.web.client.AsyncRestTemplate
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.reactive.function.client.WebClient
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
@@ -16,12 +20,12 @@ class LoadTest(
     private val restTemplate = RestTemplate()
 
     fun fetchApi() {
-        for (i in 1..100) {
+        for (i in 0..100) {
             es.execute {
                 val stopWatch = StopWatch()
 
                 stopWatch.start()
-                val response = restTemplate.getForObject("$BASE_URL/block?=idx=$i", String::class.java)
+                val response = restTemplate.getForObject("$BASE_URL/nonblock?=idx=$i", String::class.java)
                 stopWatch.stop()
 
                 log.info { "response=$response, stopWatch=${stopWatch.totalTimeSeconds}" }

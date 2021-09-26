@@ -5,6 +5,7 @@ import org.springframework.boot.runApplication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.context.request.async.DeferredResult
+import reactor.core.publisher.Mono
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executors
 
@@ -44,5 +45,10 @@ class DemoControler {
     private fun slowThread(idx: Int): String {
         Thread.sleep(2000L);
         return "SLOW-$idx"
+    }
+
+    @GetMapping("/reactive")
+    fun reactive(): Mono<String> {
+        return Mono.just("This is reactive")
     }
 }
